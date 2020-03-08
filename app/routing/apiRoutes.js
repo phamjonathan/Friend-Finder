@@ -12,19 +12,26 @@ function apiRoutes(app) {
 
        var user = req.body
         for (let i = 0; i < friends.length; i++) {
-
+           totalDifference = 0;
             for (let j = 0; j < friends[i].scores.length; j++) {
-                   totalDifference = totalDifference + friends[i].scores[j] -  parseInt(user.score[j])
+                   totalDifference = totalDifference + Math.abs(friends[i].scores[j] -  parseInt(user.scores[j]))
 
             }
-
+            newFriend.push({
+                name: friends[i].name,
+                photo: friends[i].photo,
+                totalDifference: totalDifference
+            })
         }
 
 
         friends.push(req.body)
 
-
-        res.json(friends)
+        newFriend.sort((a,b) => {
+           return a.totalDifference - b.totalDifference
+        }) 
+        console.log(newFriend)
+        res.json(newFriend[0])
     })
 }
 
