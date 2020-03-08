@@ -3,6 +3,10 @@ var app = express()
 
 var PORT = process.env.PORT || 8080
 
+
+//Takes users data and converts into JSON 
+//in post/req.body
+
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 
